@@ -1,14 +1,20 @@
 module "Lab" {
   count = terraform.workspace == "Lab" ? 1 : 0
-  source = "./modules/Lab"
+  source = "./modules/Lab" 
+  AdminArea-Subnet = module.AdminArea.AdminArea-Subnet
 }
 
 module "Prod" {
   count = terraform.workspace == "Prod" ? 1 : 0
   source = "./modules/Prod"
+  AdminArea-Subnet = module.AdminArea.AdminArea-Subnet
+
 }
 
 module "AdminArea" {
   source = "./modules/AdminArea"
+  Lab-VPC-ID = module.Lab.Lab-VPC-Id
+  Prod-VPC-ID = module.Prod.Prod-VPC-ID
+  Workspace = terraform.workspace
 }
 

@@ -7,7 +7,7 @@ resource "aws_internet_gateway" "AdminArea-Gw" {
 }
 
 resource "aws_route_table" "AdminArea-Route" {
-  vpc_id = aws_vpc.SimpleLB-VPC.id
+  vpc_id = aws_vpc.AdminArea-VPC.id
 
   route {
     cidr_block = "0.0.0.0/0"
