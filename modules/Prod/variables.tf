@@ -16,7 +16,7 @@ variable "VPC" {
     Subnet = string
   })
   default = {
-    Name = "PROD_VPC_SUBNET_PROJECT_NAME"
+    Name = "PROD_VPC_PROJECT_NAME"
     Subnet = "10.PROJECT_ID.2.0/24"
   }
 
@@ -33,19 +33,19 @@ variable "Subnet" {
   default = {
     "AZ-A" = {
       name                    = "PROJECT_NAME-AZ-A"
-      cidr_block              = "10.ID.2.32/28"
+      cidr_block              = "10.PROJECT_ID.2.32/28"
       region                  = "us-east-1a"
       map_public_ip_on_launch = true
     }
     "AZ-B" = {
       name                    = "PROJECT_NAME-AZ-B"
-      cidr_block              = "10.ID.2.48/28"
+      cidr_block              = "10.PROJECT_ID.2.48/28"
       region                  = "us-east-1b"
       map_public_ip_on_launch = true
     }
     "AZ-C" = {
       name                    = "PROJECT_NAME-AZ-C"
-      cidr_block              = "10.ID.2.64/28"
+      cidr_block              = "10.PROJECT_ID.2.64/28"
       region                  = "us-east-1c"
       map_public_ip_on_launch = true
     }
