@@ -5,6 +5,7 @@ resource "aws_instance" "Prod-Instances" {
   user_data = file("./modules/Prod/Cloud-Init/app.yaml")
   subnet_id = local.Subnet[each.key]
   vpc_security_group_ids = [aws_security_group.Prod-WebNSG.id]
+  key_name = "prod"
   tags = {
     Name = each.value.name
   }

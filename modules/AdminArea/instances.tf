@@ -3,6 +3,7 @@ resource "aws_instance" "AdminArea-Instance" {
   ami = var.Instance.ami
   user_data = file("./modules/AdminArea/Cloud-Init/admin.yaml")
   subnet_id = aws_subnet.AdminArea-Subnet.id
+  key_name = "admin"
   tags = {
     Name = var.Instance.name
   }

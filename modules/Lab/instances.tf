@@ -5,6 +5,7 @@ resource "aws_instance" "Lab-Instances" {
   user_data = file("./modules/Lab/Cloud-Init/app.yaml")
   subnet_id = local.Subnet[each.key]
   vpc_security_group_ids = [aws_security_group.Lab-WebNSG.id]
+  key_name = "lab"
   tags = {
     Name = each.value.name
   }
