@@ -16,7 +16,7 @@ variable "VPC" {
     Subnet = string
   })
   default = {
-    Name = "LAB_VPC_SUBNET_PROJECT_NAME"
+    Name = "LAB_VPC_PROJECT_NAME"
     Subnet = "10.PROJECT_ID.3.0/24"
   }
 

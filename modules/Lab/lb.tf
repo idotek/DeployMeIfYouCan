@@ -1,7 +1,7 @@
-resource "aws_elb" "Prod-LB" {
+resource "aws_elb" "Lab-LB" {
   name            = "${var.ProjectName}-LB"
-  subnets         = [aws_subnet.Prod-Subnet["AZ-A"].id, aws_subnet.Prod-Subnet["AZ-B"].id, aws_subnet.Prod-Subnet["AZ-C"].id]
-  security_groups = [aws_security_group.LbNSG.id]
+  subnets         = [aws_subnet.Lab-Subnet["AZ-A"].id, aws_subnet.Lab-Subnet["AZ-B"].id, aws_subnet.Lab-Subnet["AZ-C"].id]
+  security_groups = [aws_security_group.Lab-LbNSG.id]
   listener {
     instance_port     = 80
     instance_protocol = "http"
@@ -17,7 +17,7 @@ resource "aws_elb" "Prod-LB" {
     interval            = 30
   }
 
-  instances                   = [aws_instance.Prod-Instances["AZ-A-Machine"].id, aws_instance.Prod-Instances["AZ-B-Machine"].id, aws_instance.Prod-Instances["AZ-C-Machine"].id]
+  instances                   = [aws_instance.Lab-Instances["AZ-A-Machine"].id, aws_instance.Lab-Instances["AZ-B-Machine"].id, aws_instance.Lab-Instances["AZ-C-Machine"].id]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true

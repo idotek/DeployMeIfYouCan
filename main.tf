@@ -13,8 +13,6 @@ module "Prod" {
 
 module "AdminArea" {
   source = "./modules/AdminArea"
-  Lab-VPC-ID = module.Lab.Lab-VPC-Id
-  Prod-VPC-ID = module.Prod.Prod-VPC-ID
   Workspace = terraform.workspace
-}
+} 
 

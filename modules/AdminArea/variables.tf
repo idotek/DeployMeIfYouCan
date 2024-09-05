@@ -52,6 +52,7 @@ variable "SecurityGroup_Name" {
   default = "ADMIN_AREA_NSG_PROJECT_NAME"
 }
 
-variable "Lab-VPC-ID" {}
-variable "Prod-VPC-ID" {}
 variable "Workspace" {}
+variable "ProjectName" {
+  default = "PROJECT_NAME"
+}

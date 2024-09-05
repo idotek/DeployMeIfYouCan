@@ -1,7 +1,7 @@
 resource "aws_elb" "Prod-LB" {
   name            = "${var.ProjectName}-LB"
   subnets         = [aws_subnet.Prod-Subnet["AZ-A"].id, aws_subnet.Prod-Subnet["AZ-B"].id, aws_subnet.Prod-Subnet["AZ-C"].id]
-  security_groups = [aws_security_group.LbNSG.id]
+  security_groups = [aws_security_group.Prod-LbNSG.id]
   listener {
     instance_port     = 80
     instance_protocol = "http"
