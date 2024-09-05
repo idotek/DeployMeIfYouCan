@@ -2,6 +2,7 @@ module "Lab" {
   count = terraform.workspace == "Lab" ? 1 : 0
   source = "./modules/Lab" 
   AdminArea-Subnet = module.AdminArea.AdminArea-Subnet
+  IPSSI-IPv4 = var.IPSSI-IPv4
 }
 
 module "Prod" {

@@ -16,3 +16,8 @@ variable "region" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "IPSSI-IPv4" {
+  type = string
+  sensitive = true
+}
