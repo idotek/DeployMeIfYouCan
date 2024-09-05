@@ -61,18 +61,18 @@ variable "instances" {
   default = {
     "AZ-A-Machine" = {
       name          = "PROJECT_NAME-AZ-A-Machine"
-      instance_type = "PROD_INSTANCE_TYPE"
-      ami           = "PROD_AMI"
+      instance_type = "PROJECT_INSTANCE_TYPE"
+      ami           = "PROJECT_AMI"
     }
     "AZ-B-Machine" = {
       name          = "PROJECT_NAME-AZ-B-Machine"
-      instance_type = "PROD_INSTANCE_TYPE"
-      ami           = "PROD_AMI"
+      instance_type = "PROJECT_INSTANCE_TYPE"
+      ami           = "PROJECT_AMI"
     }
     "AZ-C-Machine" = {
       name          = "PROJECT_NAME-AZ-C-Machine"
-      instance_type = "PROD_INSTANCE_TYPE"
-      ami           = "PROD_AMI"
+      instance_type = "PROJECT_INSTANCE_TYPE"
+      ami           = "PROJECT_AMI"
     }
   }
 }
