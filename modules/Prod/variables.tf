@@ -78,6 +78,8 @@ variable "instances" {
 }
 
 variable "AdminArea-Subnet" {}
+variable "AdminArea-VPC-ID" {}
+
 variable "IPSSI-IPv4" {
   default = "37.70.218.118"
 }

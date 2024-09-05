@@ -21,3 +21,7 @@ variable "IPSSI-IPv4" {
   type = string
   sensitive = true
 }
+
+variable "ProjectName" {
+  default = "PROJECT_NAME"
+}
