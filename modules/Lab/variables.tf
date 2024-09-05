@@ -80,5 +80,5 @@ variable "instances" {
 
 variable "AdminArea-Subnet" {}
 variable "IPSSI-IPv4" {
-  default = "37.70.218.118"
+  default = "37.70.218.118/32"
 }
