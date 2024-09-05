@@ -4,6 +4,8 @@ module "Lab" {
   AdminArea-Subnet = module.AdminArea.AdminArea-Subnet
   IPSSI-IPv4 = var.IPSSI-IPv4
   AdminArea-VPC-ID = module.AdminArea.AdminArea-VPC-ID
+  AdminArea-VPC-CIDR = module.AdminArea.AdminArea-VPC-CIDR
+  AdminArea-Route-id = module.AdminArea.AdminArea-Route-id
 }
 
 module "Prod" {
@@ -11,12 +13,14 @@ module "Prod" {
   source = "./modules/Prod"
   AdminArea-Subnet = module.AdminArea.AdminArea-Subnet
   AdminArea-VPC-ID = module.AdminArea.AdminArea-VPC-ID
-
+  AdminArea-VPC-CIDR = module.AdminArea.AdminArea-VPC-CIDR
+  AdminArea-Route-id = module.AdminArea.AdminArea-Route-id
 
 }
 
 module "AdminArea" {
   source = "./modules/AdminArea"
   Workspace = terraform.workspace
+
 } 
 

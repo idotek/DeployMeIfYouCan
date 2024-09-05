@@ -79,7 +79,7 @@ variable "instances" {
 
 
 variable "AdminArea-Subnet" {}
-variable "AdminArea-VPC-ID" {
-  
-}
+variable "AdminArea-VPC-ID" {}
+variable "AdminArea-VPC-CIDR" {}
+variable "AdminArea-Route-id" {}
 variable "IPSSI-IPv4" {}

@@ -56,3 +56,4 @@ variable "Workspace" {}
 variable "ProjectName" {
   default = "PROJECT_NAME"
 }
+

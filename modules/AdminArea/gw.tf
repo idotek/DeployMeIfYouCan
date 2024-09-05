@@ -26,4 +26,6 @@ resource "aws_route_table" "AdminArea-Route" {
 resource "aws_main_route_table_association" "AdminArea-RouteAndVPC" {
   vpc_id         = aws_vpc.AdminArea-VPC.id
   route_table_id = aws_route_table.AdminArea-Route.id
+
 }
+
