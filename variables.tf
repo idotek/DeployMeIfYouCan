@@ -17,7 +17,7 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "IPSSI-IPv4" {
+variable "IPSSIIPv4" {
   type = string
   sensitive = true
 }

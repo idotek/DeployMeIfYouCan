@@ -2,7 +2,7 @@ module "Lab" {
   count = terraform.workspace == "Lab" ? 1 : 0
   source = "./modules/Lab" 
   AdminArea-Subnet = module.AdminArea.AdminArea-Subnet
-  IPSSI-IPv4 = var.IPSSI-IPv4
+  IPSSI-IPv4 = var.IPSSIIPv4
   AdminArea-VPC-ID = module.AdminArea.AdminArea-VPC-ID
   AdminArea-VPC-CIDR = module.AdminArea.AdminArea-VPC-CIDR
   AdminArea-Route-id = module.AdminArea.AdminArea-Route-id
