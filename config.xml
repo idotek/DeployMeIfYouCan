@@ -1,0 +1,122 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>PROJECT_NAME</name>
+          <trim>false</trim>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>ENV</name>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>Lab</string>
+              <string>Prod</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.ChoiceParameterDefinition>
+          <name>INSTANCE_TYPE</name>
+          <choices class="java.util.Arrays$ArrayList">
+            <a class="string-array">
+              <string>t2.micro</string>
+              <string>t2.large</string>
+            </a>
+          </choices>
+        </hudson.model.ChoiceParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>access_key</name>
+          <defaultValue>{AQAAABAAAAAgKU1cqmXygvy31qnVekalv3VnUssdbkl1BPaxxau2Lzlnw6vqdcHoemdWiY/L0WQQ}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>secret_key</name>
+          <defaultValue>{AQAAABAAAAAwx32Vsod3fUWg9tJM7j6h6mqhmQEoUWnvrPI2ifbtwtnNUcPNQA8ADXkl8ZyZkylLc0jzRIUOB+q8qPCYycU9YQ==}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <hudson.model.PasswordParameterDefinition>
+          <name>IPSSIIPv4</name>
+          <defaultValue>{AQAAABAAAAAgKsgji9GgI8XUQ6IfmAb5YSippjDx0esjv/gsS5UZgsOFG18lTNjmJCZIrZLSCP3U}</defaultValue>
+        </hudson.model.PasswordParameterDefinition>
+        <org.biouno.unochoice.ChoiceParameter plugin="uno-choice@2.8.3">
+          <name>AMI</name>
+          <randomName>choice-parameter-202564746399909</randomName>
+          <visibleItemCount>1</visibleItemCount>
+          <script class="org.biouno.unochoice.model.GroovyScript">
+            <secureScript plugin="script-security@1354.va_70a_fe478c7f">
+              <script>
+def command = &quot;IFS=\$&apos;\n&apos;; aws ec2 describe-images  --filters &apos;Name=name,Values=ubuntu/images/hvm-ssd/ubuntu*&apos; &apos;Name=architecture,Values=x86_64&apos;  --query &apos;Images[*].[ImageId]&apos; --output text  | sort -k2 -r  | head -n5&quot;
+def result = [&quot;/bin/bash&quot;, &quot;-c&quot;, command].execute().text.readLines()
+return result</script>
+              <sandbox>false</sandbox>
+            </secureScript>
+            <secureFallbackScript plugin="script-security@1354.va_70a_fe478c7f">
+              <script></script>
+              <sandbox>false</sandbox>
+            </secureFallbackScript>
+          </script>
+          <projectName>DeployMeIfYouCan</projectName>
+          <projectFullName>DeployMeIfYouCan</projectFullName>
+          <choiceType>PT_SINGLE_SELECT</choiceType>
+          <filterable>false</filterable>
+          <filterLength>1</filterLength>
+        </org.biouno.unochoice.ChoiceParameter>
+        <hudson.model.TextParameterDefinition>
+          <name>INSTALL_SCRIPT</name>
+          <defaultValue>sudo apt install git -y
+</defaultValue>
+          <trim>false</trim>
+        </hudson.model.TextParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+function search_id {
+	for i in {0..250}
+    do
+    	sudo cat /home/Infra/id |grep -x $i &gt; /dev/null
+        if [ $? -ne 0 ]
+        then
+        	echo $i;
+            return $i;
+        fi
+    done
+}
+
+function run_tf {
+	cd /home/Infra/$PROJECT_NAME
+	id=$(search_id)
+	sudo terraform init
+    sudo terraform workspace new $ENV
+    sudo sed -i &quot;s/PROJECT_NAME/$PROJECT_NAME/g&quot; modules/*/variables.tf
+    sudo sed -i &quot;s/PROJECT_INSTANCE_TYPE/$INSTANCE_TYPE/g&quot; modules/*/variables.tf
+    sudo sed -i &quot;s/PROJECT_AMI/$AMI/g&quot; modules/*/variables.tf
+    sudo sed -i &quot;s/PROJECT_ID/$id/g&quot; modules/*/variables.tf
+    echo -e &quot;\n$INSTALL_SCRIPT&quot; | sudo tee -a modules/$ENV/Cloud-Init/app.sh
+	sudo sudo terraform apply --auto-approve -var=access_key=$access_key -var=secret_key=$secret_key -var=IPSSIIPv4=$IPSSIIPv4
+    echo $id | sudo tee -a /home/Infra/id
+}
+
+
+sudo mkdir /home/Infra -p
+test [[ -f /home/Infra/id ]] || sudo touch /home/Infra/id
+cd /home/Infra
+sudo git clone https://github.com/idotek/DeployMeIfYouCan /home/Infra/$PROJECT_NAME
+run_tf</command>
+      <configuredLocalRules/>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
