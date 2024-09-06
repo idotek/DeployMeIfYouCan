@@ -5,7 +5,7 @@ resource "tls_private_key" "lab_key_pair" {
 }
 # Create admin key_pair
 resource "aws_key_pair" "gen_lab_public_key" {
-  key_name   = "lab"
+  key_name   = "${var.ProjectName}-lab"
   public_key = tls_private_key.lab_key_pair.public_key_openssh
 }
 
