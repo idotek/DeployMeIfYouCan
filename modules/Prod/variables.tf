@@ -82,6 +82,4 @@ variable "AdminArea-VPC-ID" {}
 variable "AdminArea-VPC-CIDR" {}
 variable "AdminArea-Route-id" {}
 
-variable "IPSSI-IPv4" {
-  default = "37.70.218.118"
-}
+variable "IPSSIIPv4" {}

@@ -15,7 +15,7 @@ module "Prod" {
   AdminArea-VPC-ID = module.AdminArea.AdminArea-VPC-ID
   AdminArea-VPC-CIDR = module.AdminArea.AdminArea-VPC-CIDR
   AdminArea-Route-id = module.AdminArea.AdminArea-Route-id
-
+  IPSSIIPv4 = var.IPSSIIPv4
 }
 
 module "AdminArea" {
